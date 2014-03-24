@@ -52,10 +52,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	  	  	
   	  	
 		var assetnames = $("#assetName").val();
-		var src='http://10.0.0.120:8080/3d/assetinterface/asset!getAssetList?assetNames='+assetnames;
+		var src='esm/esm!getPersonClient';
 		//alert(assetnames)
 		var tr = "";
-		/*
+		
 		$.post(src,{assetNames:assetnames},function(data){
 			var jsonObj = eval("(" + data + ")");  
 			$("#assetinfo tbody").html('');
@@ -84,45 +84,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				//alert(tr)
 				$("#assetinfo tbody").append(tr);
 			})
-*/
-			$.ajax({
-	            type: "get",
-	            async: false,
-	            url: src,
-	            dataType: "jsonp",
-	            jsonp: "callback",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)
-	            jsonpCallback:"flightHandler",//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据
-	            success: function(data){
-	            //alert(data.length);
-	            $("#assetinfo tbody").html('');
-	            for (var i = 0; i < data.length; i++) {
-					var rackName = data[i].rackName;
-					var rmName = data[i].rmName;
-					var rmInner = data[i].rmInnum;
-					var rmip = data[i].phomeip;
-					var rmClass = data[i].rmClass;
-					var rmType = data[i].rmType;
-					var rnUser = data[i].rmUser;
-					var rmHeight = data[i].rmHeight;
-	                
-					//处理数据
-	            	tr+='<tr><td>'+rackName+'</td>'
-					+'<td>'+rmName+'</td>'
-					+'<td>'+rmInner+'</td>'
-					+'<td>'+rmip+'</td>'
-					+'<td>'+rmClass+'</td>'
-					+'<td>'+rmType+'</td>'
-					+'<td>'+rnUser+'</td>'
-					+'<td>'+rmHeight+'</td>'
-					+'</tr>'
-	            }
-	            $("#assetinfo tbody").append(tr);
-	            },
-	            error: function(){
-	                alert('fail');
-	            }
-	        });
-			
   	  	  	})
 		
   	  	})
