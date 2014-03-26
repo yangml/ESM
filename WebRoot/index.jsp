@@ -21,10 +21,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body>
   	<table id='assetcon' class='table table-hover'>
-  		<tr><td colspan="2">资产名称&nbsp;&nbsp;:&nbsp;&nbsp;<input type="text" name="assetName" id="assetName" value="" style="color:#ccc;width: 250px;height:30px;" />&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: red" size="4px;">输入的设备名称为“，”分割。</font></td></tr>
+  		<tr><td colspan="3">资产名称&nbsp;&nbsp;:&nbsp;&nbsp;<input type="text" name="assetName" id="assetName" value="" style="color:#ccc;width: 250px;height:30px;" />&nbsp;&nbsp;&nbsp;&nbsp;<font style="color: red" size="4px;">输入的设备名称为“，”分割。</font></td></tr>
   		<tr>
   			<td><a id="getAsset" class="btn btn-info">获取3D资产信息</a></td>
   			<td><a id="updateAsset" class="btn btn-success">更新3D资产信息</a></td>
+  			<td><a id="getLog" class="btn btn-success">获取3D日志信息</a></td>
   		</tr>
   	</table>
   	<table id='assetinfo' class='table table-bordered'>
@@ -85,7 +86,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$("#assetinfo tbody").append(tr);
 			})
   	  	  	})
-		
+			//发送数据到资产库（3d）中进行更新数据
+  	  	  	$("#updateAsset").click(function(){
+  	  	  	  	var src = "esm/esm!sendUpdateData";
+				$.post(src,function(data){
+						alert(data);
+					})
+  	  	  	  })
   	  	})
   </script>
 </html>
