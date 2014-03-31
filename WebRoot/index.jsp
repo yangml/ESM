@@ -44,7 +44,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<tbody>
 		</tbody>
   	</table>
-  	
+  	  	<table id='loginfo' class='table table-bordered'>
+  		<thead>
+	  			<tr>
+					<th>日志编号</th>
+					<th>ip</th>
+					<th>操作用户</th>
+					<th>时间</th>
+					<th>详情</th>
+	  			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+  	</table>
   </body>
   <script type="text/javascript">
   	$(function(){
@@ -93,6 +105,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						alert(data);
 					})
   	  	  	  })
+  	  $("#getLog").click(function(){
+  	  	  	//alert("==");
+  	  	  	
+  	  	
+		var src='esm/esm!getOptLogData';
+		//alert(assetnames)
+		var tr = "";
+		
+		$.post(src,function(data){
+			var jsonObj = eval("(" + data + ")");  
+			$("#loginfo tbody").html('');
+            for (var i = 0; i < jsonObj.length; i++) {  
+				//获取返回的数据
+				var logID = jsonObj[i].logID;
+				var ipAddress = jsonObj[i].ipAddress;
+				var opeName = jsonObj[i].opeName;
+				var opeTime = jsonObj[i].opeTime;
+				var details = jsonObj[i].details;
+				//alert(rackName);
+            	//处理数据
+            	tr+='<tr><td>'+logID+'</td>'
+				+'<td>'+ipAddress+'</td>'
+				+'<td>'+opeName+'</td>'
+				+'<td>'+opeTime+'</td>'
+				+'<td>'+details+'</td>'
+				+'</tr>'
+				} 
+				//alert(tr)
+				$("#loginfo tbody").append(tr);
+			})
+  	  	  	})
   	  	})
   </script>
 </html>

@@ -50,6 +50,25 @@ public class ESMClient {
         } 
         return str;
 	}
+	public String getoptLog(String url) throws ClientProtocolException, IOException{
+		 // 创建HttpClient实例     
+       HttpClient httpclient = new DefaultHttpClient();  
+       httpclient.getParams().setParameter(HttpMethodParams.HTTP_CONTENT_CHARSET,"utf-8");
+       // 创建Get方法实例     
+       HttpGet httpgets = new HttpGet(url);    
+       HttpResponse response = httpclient.execute(httpgets);    
+       HttpEntity entity = response.getEntity();
+       String str=null;
+       if (entity != null) {    
+           InputStream instreams = entity.getContent();    
+           str = convertStreamToString(instreams);  
+           //System.out.println("Do something");   
+           //System.out.println("PersonClient:"+str);  
+           // Do not need the rest    
+           httpgets.abort();    
+       } 
+       return str;
+	}
     public static String convertStreamToString(InputStream is) throws UnsupportedEncodingException {  
     	
 		//开始时间

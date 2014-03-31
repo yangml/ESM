@@ -92,6 +92,30 @@ public class ClientAction extends BaseAction{
 		getResponse().getWriter().print(res);
 		return null;
 	}
+	/**
+	 * 获取3d中的日志信息
+	 * @return
+	 * @throws IOException 
+	 * @throws ClientProtocolException 
+	 */
+	public String getOptLogData() throws ClientProtocolException, IOException{
+		ESMClient ec = new ESMClient();
+		String url = "http://10.0.0.120:8080/3d/assetinterface/asset!findOptLogInfo";
+		//开始时间
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss:SS"); 
+		TimeZone t = sdf.getTimeZone(); 
+		t.setRawOffset(0); 
+		sdf.setTimeZone(t); 
+		Long startTime = System.currentTimeMillis(); 
+		String str = new ESMClient().getoptLog(url);
+		//System.out.println("action="+str.toString());
+		getResponse().setContentType("text/html;charset=UTF-8");
+		getResponse().getWriter().print(str);
+		//结束时间
+		Long endTime = System.currentTimeMillis(); 
+		System.out.println("需要的时间" + sdf.format(new Date(endTime - startTime))); 
+		return null;
+	}
 	
 	public static void main(String[] args) {
 		try {
